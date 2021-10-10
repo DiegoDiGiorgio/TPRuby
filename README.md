@@ -109,3 +109,18 @@ puede requerir algún trabajo adicional de tu parte.
   * `lib/polycon/version.rb` define la versión de la herramienta, utilizando [SemVer](https://semver.org/lang/es/).
 * `bin/`: directorio donde reside cualquier archivo ejecutable, siendo el más notorio `polycon`
   que se utiliza como punto de entrada para el uso de la herramienta.
+
+
+### DOCUMENTACIÓN 
+
+  ## Referencias
+
+    * Se utilizo utilizo la documentacion oficial de RUBY en especial para las clases File y Dir.
+  
+  ## Modelo de Datos
+
+    * Se utilizo para modelar los datos elementos de file system de linux, creando una carpeta /.polycon 
+      la primera vez que se crea un profesional, lugo por cada profesional se crea una carpeta en donde
+      se guardaran los turnos programados para dicho profesional, los turnos son archivos de texto plano
+      con el formato AAAA-MM-DD_HH-II y la extencion .paf
+  
