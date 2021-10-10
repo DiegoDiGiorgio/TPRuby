@@ -34,11 +34,11 @@ module Polycon
 
         def call(name: nil)
           #warn "TODO: Implemenar borrado de la o el profesional con nombre '#{name}'.\nPodés comenzar a hacerlo en #{__FILE__}:#{__LINE__}."
-          if(Dir.empty?(Dir.home() +"/.polycon/" + name))
+          if( Dir.exists?((Dir.home() +"/.polycon/" + name)) && Dir.empty?(Dir.home() +"/.polycon/" + name))
             Dir.rmdir(Dir.home() +"/.polycon/" + name)
             puts "el directorio fue eliminado"
           else
-            puts "No se puede borrar!! \nEl profesional tiene turnos pendientes."
+            puts "No se puede borrar!! \nEl profesional tiene turnos pendientes o no existe."
           end
         end
       end
