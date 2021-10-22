@@ -13,7 +13,7 @@ module Polycon
 
         example [
           '"2021-09-16 13:00" --professional="Alma Estevez" --name=Carlos --surname=Carlosi --phone=2213334567'
-        ]
+        ] 
 
         def call(date:, professional:, name:, surname:, phone:, notes: nil)
           #warn "TODO: Implementar creación de un turno con fecha '#{date}'.\nPodés comenzar a hacerlo en #{__FILE__}:#{__LINE__}."
