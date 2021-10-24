@@ -13,12 +13,8 @@ module Polycon
 
         def call(name:, **)
          # warn "TODO: Implementar creación de un o una profesional con nombre '#{name}'.\nPodés comenzar a hacerlo en #{__FILE__}:#{__LINE__}."
-          if(Dir.exists?(Dir.home() + "/.polycon"))
-            Dir.mkdir(Dir.home() + "/.polycon/" + name)
-          else
-            Dir.mkdir(Dir.home() + "/.polycon")
-            Dir.mkdir(Dir.home() + "/.polycon/" + name)
-          end
+          modeloProfessionals = Polycon::Models::ProfessionalsModel::ProModel.new()
+          modeloProfessionals.create(name)
         end
       end
 
@@ -34,12 +30,8 @@ module Polycon
 
         def call(name: nil)
           #warn "TODO: Implemenar borrado de la o el profesional con nombre '#{name}'.\nPodés comenzar a hacerlo en #{__FILE__}:#{__LINE__}."
-          if( Dir.exists?((Dir.home() +"/.polycon/" + name)) && Dir.empty?(Dir.home() +"/.polycon/" + name))
-            Dir.rmdir(Dir.home() +"/.polycon/" + name)
-            puts "el directorio fue eliminado"
-          else
-            puts "No se puede borrar!! \nEl profesional tiene turnos pendientes o no existe."
-          end
+          modeloProfessionals = Polycon::Models::ProfessionalsModel::ProModel.new()
+          modeloProfessionals.delete(name)
         end
       end
 
@@ -52,7 +44,8 @@ module Polycon
 
         def call(*)
           #warn "TODO: Implementar listado de profesionales.\nPodés comenzar a hacerlo en #{__FILE__}:#{__LINE__}."
-          Dir.foreach(Dir.home() + "/.polycon") {|pro| puts "#{pro}\n"}
+          modeloProfessionals = Polycon::Models::ProfessionalsModel::ProModel.new()
+          modeloProfessionals.list()
         end
       end
 
@@ -68,12 +61,8 @@ module Polycon
 
         def call(old_name:, new_name:, **)
           #warn "TODO: Implementar renombrado de profesionales con nombre '#{old_name}' para que pase a llamarse '#{new_name}'.\nPodés comenzar a hacerlo en #{__FILE__}:#{__LINE__}."
-          if (Dir.exists?(Dir.home() + '/.polycon/' + old_name))
-            File.rename Dir.home() + '/.polycon/' + old_name, Dir.home() + '/.polycon/' + new_name
-            puts "Renombre exitoso  #{old_name} ==> #{new_name}"
-          else 
-            puts "El profesional #{old_name} no existe !"
-          end
+          modeloProfessionals = Polycon::Models::ProfessionalsModel::ProModel.new()
+          modeloProfessionals.rename(old_name, new_name)
         end
       end
     end

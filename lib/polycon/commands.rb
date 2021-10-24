@@ -3,6 +3,7 @@ module Polycon
     autoload :Professionals, 'polycon/commands/professionals'
     autoload :Appointments, 'polycon/commands/appointments'
     autoload :Version, 'polycon/commands/version'
+    
 
     extend Dry::CLI::Registry
 
