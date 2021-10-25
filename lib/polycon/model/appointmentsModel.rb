@@ -3,7 +3,7 @@ module Polycon
     module AppointmentsModel
       class AppModel
 
-        def crear(date, professional, name, surname, phone, notes)
+        def self.crear(date, professional, name, surname, phone, notes)
           if(date<Time.now.strftime("%Y-%m-%d %H:%M"))
             puts "No se puede asignar un turno a una fecha posterior al dia de hoy !"
             return
@@ -29,7 +29,7 @@ module Polycon
           end
         end
 
-        def show(date, professional)
+        def self.show(date, professional)
           date=date.gsub(" ","_")
           if((Dir.exists?(Dir.home() + "/.polycon/#{professional}")) && (File.exist?(Dir.home() + "/.polycon/#{professional}/#{date}.paf")))
             file = File.open(Dir.home() + "/.polycon/#{professional}/#{date}.paf", mode: "r")
@@ -41,7 +41,7 @@ module Polycon
           end
         end
 
-        def cancel(date, professional)
+        def self.cancel(date, professional)
           date=date.gsub(" ","_")
           if((Dir.exists?(Dir.home() + "/.polycon/#{professional}")) && (File.exist?(Dir.home() + "/.polycon/#{professional}/#{date}.paf")))
             File.delete(Dir.home() + "/.polycon/#{professional}/#{date}.paf")
@@ -50,7 +50,7 @@ module Polycon
           end
         end
 
-        def cancelAll(professional)
+        def self.cancelAll(professional)
           if((Dir.exists?(Dir.home() + "/.polycon/#{professional}")))
             turnos = Dir.entries((Dir.home() + "/.polycon/#{professional}"))
             turnos.delete(".")
@@ -63,7 +63,7 @@ module Polycon
           end
         end
 
-        def list(professional, date)
+        def self.list(professional, date)
           if((Dir.exists?(Dir.home() + "/.polycon/#{professional}")))
             turnos = Dir.entries((Dir.home() + "/.polycon/#{professional}"))
             turnos.delete(".")
@@ -83,7 +83,7 @@ module Polycon
           end
         end
 
-        def reschedule(old_date, new_date, professional)
+        def self.reschedule(old_date, new_date, professional)
           old_date=old_date.gsub(" ","_")
           new_date=new_date.gsub(" ","_")
           if((Dir.exist?(Dir.home() + "/.polycon/#{professional}")) && (File.exist?(Dir.home() + "/.polycon/#{professional}/#{old_date}.paf")))
@@ -99,7 +99,7 @@ module Polycon
           end
         end
 
-        def edit(date, professional, options)
+        def self.edit(date, professional, options)
           date=date.gsub(" ", "_")
           if  (!File.exist?(Dir.home()+"/.polycon/#{professional}/#{date}.paf"))
             puts "No existe un turno para #{professional} el día #{date}"

@@ -2,7 +2,7 @@ module Polycon
 	module Models      
 		module ProfessionalsModel
 			class ProModel
-				def create(name)
+				def self.create(name)
 					if(Dir.exists?(Dir.home() + "/.polycon"))
 						Dir.mkdir(Dir.home() + "/.polycon/" + name)
 					  else
@@ -11,7 +11,7 @@ module Polycon
 					  end
 				end
 
-				def delete(name)
+				def self.delete(name)
 					if( Dir.exists?((Dir.home() +"/.polycon/" + name)) && Dir.empty?(Dir.home() +"/.polycon/" + name))
             Dir.rmdir(Dir.home() +"/.polycon/" + name)
             puts "el directorio fue eliminado"
@@ -20,11 +20,11 @@ module Polycon
           end
 				end
 
-				def list()
+				def self.list()
 					Dir.foreach(Dir.home() + "/.polycon") {|pro| puts "#{pro}\n"}
 				end
 
-				def rename(old_name, new_name)
+				def self.rename(old_name, new_name)
 					if (Dir.exists?(Dir.home() + '/.polycon/' + old_name))
 						File.rename Dir.home() + '/.polycon/' + old_name, Dir.home() + '/.polycon/' + new_name
 						puts "Renombre exitoso  #{old_name} ==> #{new_name}"
