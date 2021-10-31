@@ -1,7 +1,6 @@
 module Polycon
 	module Models      
 		module WriterModel
-      require "prawn"
       require "erb"
 
 			class Writer
