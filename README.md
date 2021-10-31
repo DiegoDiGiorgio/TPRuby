@@ -123,4 +123,6 @@ puede requerir algún trabajo adicional de tu parte.
       la primera vez que se crea un profesional, lugo por cada profesional se crea una carpeta en donde
       se guardaran los turnos programados para dicho profesional, los turnos son archivos de texto plano
       con el formato AAAA-MM-DD_HH-II y la extencion .paf
+  ## entrega 2
+    * en esta entrega se instalaron 2 gemas para exportar a pdf prawn y prawn table, luego de varios intentos y al no poder formatear el contenido de forma correcta decidi cambiar y usar la clase ERB de ruby para generar un html, con el cual solo llegue a implementar la muestra por dias( no por horas) 
   
