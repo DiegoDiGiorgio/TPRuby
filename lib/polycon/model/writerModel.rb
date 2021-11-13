@@ -9,14 +9,13 @@ module Polycon
          fecha = self.getData(date)
 
          @dia = date
-         @horas = ["15:30", "16:00"]
-         @turnos = fecha.getTurno()
+         @turnos = fecha.get_turns()
 
 
           #logica de la impresion a html
           template = File.read(Dir.home()+'/Escritorio' +'/template.html')
           result = ERB.new(template).result(binding)
-          File.open((Dir.home()+'/Escritorio' +'/filename.html'), 'w+') do |f|
+          File.open((Dir.home()+"/Escritorio/turnos del dia #{date}.html "), 'w+') do |f|
             f.write result
           end
           
@@ -30,31 +29,25 @@ module Polycon
           profesionales.delete(".")
           profesionales.delete("..")
 
-          turnos=[]
+          turno = Turno.new(date) 
           profesionales.each{ |pro|
-            Dir.foreach((Dir.home() + "/.polycon/#{pro}")){ |turno|
-              if turno != "." && turno != ".."
-                nombre_paciente =""
-                line_num=0 
-                File.open(Dir.home() + "/.polycon/#{pro}/#{turno}").each do |line| 
-                  if line_num <= 1
-                    nombre_paciente += line
+            Dir.foreach((Dir.home() + "/.polycon/#{pro}")){ |turnoPro|
+              if turnoPro.include?(date)
+                if turnoPro != "." && turnoPro != ".."
+                  nombre_paciente =""
+                  line_num=0 
+                  File.open(Dir.home() + "/.polycon/#{pro}/#{turnoPro}").each do |line| 
+                    if line_num <= 1
+                      nombre_paciente += line
+                    end
+                    line_num +=1
                   end
-                  line_num +=1
-                end
-                  
-                begin
-                  turnos.select{|tur| (tur.getHora() )== turno}[0].addTurn([pro, nombre_paciente])
-                rescue
-                  t = Turno.new(turno)
-                  t.addTurn([pro, nombre_paciente])
-                  turnos << t
+                    turno.addTurn([pro, nombre_paciente], turnoPro[/_(.*?).paf/, 1])
                 end
               end
             } 
           }
-
-          return turnos.select{|tur| (tur.getHora() == date)}[0]
+          return turno
 
           
         end
@@ -62,21 +55,42 @@ module Polycon
       end
 
       class Turno
+        def initialize(date)
+          @turnos_del_dia = [] 
+          @fecha = date
+        end
+        def addTurn(info_turno, hora_del_turno)
+          begin
+            @turnos_del_dia.select{|tur| tur.getHora() == hora_del_turno}[0].addTurn(info_turno)
+          rescue
+            h = Hora.new(hora_del_turno)
+            h.addTurn(info_turno)
+            @turnos_del_dia << h
+          end
+        end
+
+        def get_turns()
+          return @turnos_del_dia
+        end
+
+      end
+
+      class Hora
         def initialize(hora)
           @hora = hora
           @turnos_en_hora = []
         end
 
-        def addTurn(turn)
-          @turnos_en_hora << turn
-        end
-
         def getHora()
           return @hora
         end
-        
-        def getTurno()
+
+        def get_turns()
           return @turnos_en_hora
+        end
+
+        def addTurn(arr_de_info_turn)
+          @turnos_en_hora << arr_de_info_turn
         end
 
       end
