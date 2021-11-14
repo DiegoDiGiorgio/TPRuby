@@ -23,15 +23,16 @@ class PatientesController < ApplicationController
   def create
     @patiente = Patiente.new(patiente_params)
 
-    respond_to do |format|
-      if @patiente.save
-        format.html { redirect_to @patiente, notice: "Patiente was successfully created." }
-        format.json { render :show, status: :created, location: @patiente }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @patiente.errors, status: :unprocessable_entity }
+      respond_to do |format|
+        if @patiente.save
+          format.html { redirect_to @patiente, notice: "Patiente was successfully created." }
+          format.json { render :show, status: :created, location: @patiente }
+        else
+          format.html { render :new, status: :unprocessable_entity }
+          format.json { render json: @patiente.errors, status: :unprocessable_entity }
+        end
       end
-    end
+
   end
 
   # PATCH/PUT /patientes/1 or /patientes/1.json

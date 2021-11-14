@@ -30,21 +30,21 @@ class AppointmentsController < ApplicationController
     @appointment = Appointment.new(appointment_params)
     @patientes = Patiente.all
     @professionals = Professional.all
-    puts("\n\n\n\n\n")
-    puts(appointment_params) 
-    respond_to do |format|
-      if @appointment.save
-        format.html { redirect_to @appointment, notice: "Appointment was successfully created." }
-        format.json { render :show, status: :created, location: @appointment }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @appointment.errors, status: :unprocessable_entity }
+      respond_to do |format|
+        if @appointment.save
+          format.html { redirect_to @appointment, notice: "Appointment was successfully created." }
+          format.json { render :show, status: :created, location: @appointment }
+        else
+          format.html { render :new, status: :unprocessable_entity }
+          format.json { render json: @appointment.errors, status: :unprocessable_entity }
+        end
       end
-    end
   end
 
   # PATCH/PUT /appointments/1 or /appointments/1.json
   def update
+    @patientes = Patiente.all
+    @professionals = Professional.all
     respond_to do |format|
       if @appointment.update(appointment_params)
         format.html { redirect_to @appointment, notice: "Appointment was successfully updated." }
