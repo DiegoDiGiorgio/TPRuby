@@ -1,5 +1,13 @@
 Rails.application.routes.draw do
-  get '/', to: 'home#index'
+  devise_for :users, path: '/', path_names: { 
+    sign_in: '', 
+    sign_out: 'logout',
+    password: 'secret',
+    confirmation: 'verification',
+    unlock: 'unblock', 
+    registration: 'register',
+    sign_up: 'cmon_let_me_in' }
+  get '/home', to: 'home#index'
   get '/export', to: 'home#export'
   resources :appointments
   resources :professionals

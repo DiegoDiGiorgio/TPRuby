@@ -16,14 +16,17 @@
         <td><%= professional.name %></td>
         <td><%= professional.surname %></td>
         <td><%= link_to 'Show', professional %></td>
-        <td><%= link_to 'Edit', edit_professional_path(professional) %></td>
-        <td><%= link_to 'Destroy', professional, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <%if($current_user_role != 'consulta' && $current_user_role != 'asistencia')%>
+          <td><%= link_to 'Edit', edit_professional_path(professional) %></td>
+          <td><%= link_to 'Destroy', professional, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <%end%>
       </tr>
     <% end %>
   </tbody>
 </table>
 
 <br>
-
-<%= link_to 'New Professional', new_professional_path %>
+<%if($current_user_role != 'consulta'&& $current_user_role != 'asistencia')%>
+  <%= link_to 'New Professional', new_professional_path %>
+<%end%>
 <%= link_to 'Atras', '/' %>

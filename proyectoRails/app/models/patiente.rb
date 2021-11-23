@@ -8,9 +8,8 @@ end
 
 class Patiente < ApplicationRecord
   has_many :appointments
-
-  validates :name, presence: true
-  validates :surname, presence: true
+  validates :name, presence: true, length: { maximum: 15,  minimum:3}
+  validates :surname, presence: true, length: { maximum: 15,  minimum:3}
   validates :phone, presence: true
   validates_with RepeatedValidator, fields: [:name, :surname]
 end

@@ -18,13 +18,17 @@
 
   <div class="field">
     <%= form.label :patiente_id %>
-    <!-- <%= form.text_field :patiente_id %> -->
     <%= form.select :patiente_id, @patientes.all.collect {|pat| [pat.name, pat.id]}%>
   </div>
 
   <div class="field">
     <%= form.label :professional_id %>
     <%= form.select :professional_id, @professionals.all.collect {|pro| [pro.name, pro.id]}%>
+  </div>
+
+  <div class="field">
+    <%= form.label :notes %>
+    <%= form.text_area :notes %>
   </div>
 
   <div class="actions">
