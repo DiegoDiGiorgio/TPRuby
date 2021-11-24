@@ -3,10 +3,4 @@ class HomeController < ApplicationController
   def index
     $current_user_role = current_user.roles
   end
-
-  def export
-    @appointments = Appointment.all
-  end
-
-
 end
