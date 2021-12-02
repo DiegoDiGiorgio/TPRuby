@@ -24,21 +24,27 @@
       <%end%>
     </table>
   <%else%> <!-- SEMANAL -->
-     <table border="1">
-          <tr>
-          <th>Hora/Dias</th>
-      <% @turnosDeSemana.each do |t| %>
-          <th><%=t.getDay().strftime("%Y-%m-%d")%></th>      
-      <%end%>    
-      </tr> 
+     <table border="1"> 
       <tr>
-        <% @turnosDeSemana[0].get_turns().each do |horas| %>
-          <%horas.each do |hs|%>
-          <tr>
-            <td><%= hs.getHora().strftime("%I:%M%p") %></td> 
-          </tr>
+        <% @turnosDeSemana.each_with_index do |turno, index| %>
+          <%if index == 0%>
+            <th>HORA/DIAS </th>
           <%end%>
-        <%end%>
+          <th><%=turno.getDay().strftime("%Y-%m-%d")%></th>
+              <%turno.get_turns().each do |hora|%>
+               <tr>
+                  <%hora.each do |hs|%>
+                    <tr>
+                      <%if index == 0%>
+                        <td><%= hs.getHora().strftime("%I:%M%p") %></td>
+                      <%end%>
+                      <td>turno 1 </td>
+                    </tr>
+                  <%end%>            
+                </tr>
+              <%end%>
+            <%end%>  
+      <%end%>
       </tr>
-  <%end%>
+    </table>
 </body>

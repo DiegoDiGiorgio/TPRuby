@@ -24,13 +24,22 @@ class ExporterController < ApplicationController
       else
         @turnos = Appointment.where(date: @fecha.all_day)
       end
+      @turnos.each do |t|
+        begin
+          @turnosOrdenados.select{|tur| tur.getHora().utc == t.date}[0].addTurn(t)
+        rescue
+           h = Hora.new(t.date)
+           h.addTurn(t) 
+           @turnosOrdenados << h
+        end
+      end
       
     else
 
       @begginingOfWeek = @fecha.beginning_of_week
       (0..6).each do |i|
         @turnos = []
-        diaCorriente = @begginingOfWeek + i
+        diaCorriente = @begginingOfWeek + i   
          sem = Semanal.new(diaCorriente)
          sem.addTurn(@turnosOrdenados)
          @turnosDeSemana << sem
