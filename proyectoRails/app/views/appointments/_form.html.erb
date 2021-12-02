@@ -13,7 +13,7 @@
 
   <div class="field">
     <%= form.label :date %>
-    <%= form.datetime_select :date %>
+    <%= form.datetime_select(:date, :minute_step => 15) %>
   </div>
 
   <div class="field">

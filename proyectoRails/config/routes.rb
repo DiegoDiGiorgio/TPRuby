@@ -8,7 +8,8 @@ Rails.application.routes.draw do
     registration: 'register',
     sign_up: 'cmon_let_me_in' }
   get '/home', to: 'home#index'
-  get '/export', to: 'home#export'
+  get '/export', to: 'exporter#index'
+  post '/export', to: 'exporter#export'
   resources :appointments
   resources :professionals
   resources :patientes

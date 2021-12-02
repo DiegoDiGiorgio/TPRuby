@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= @dia %></title>
+</head>
+<body>
+  <%if @semanal == "day"%>
+    <table border="1">
+      <tr>
+        <th>hora/dia</th>
+        <th><%= @fecha %></th>
+      </tr>
+      <tr>
+      <% @turnosOrdenados.each do |horas| %>
+          <tr>
+            <td><%= horas.getHora().strftime("%I:%M%p") %></td> 
+            <% horas.get_turns().each do |turno_en_hora| %>
+                <td><%=Patiente.find(turno_en_hora.patiente_id).name + " " + Patiente.find(turno_en_hora.patiente_id).surname+ " (" + Professional.find(turno_en_hora.professional_id).name + " "  + Professional.find(turno_en_hora.professional_id).surname + ")" %></td>
+            <%end%>
+          </tr>         
+      <%end%>
+    </table>
+  <%else%> <!-- SEMANAL -->
+     <table border="1">
+          <tr>
+          <th>Hora/Dias</th>
+      <% @turnosDeSemana.each do |t| %>
+          <th><%=t.getDay().strftime("%Y-%m-%d")%></th>      
+      <%end%>    
+      </tr> 
+      <tr>
+        <% @turnosDeSemana[0].get_turns().each do |horas| %>
+          <%horas.each do |hs|%>
+          <tr>
+            <td><%= hs.getHora().strftime("%I:%M%p") %></td> 
+          </tr>
+          <%end%>
+        <%end%>
+      </tr>
+  <%end%>
+</body>
