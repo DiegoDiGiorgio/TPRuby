@@ -37,27 +37,36 @@ class ExporterController < ApplicationController
     else
 
       @begginingOfWeek = @fecha.beginning_of_week
+      
       (0..6).each do |i|
         @turnos = []
         diaCorriente = @begginingOfWeek + i   
          sem = Semanal.new(diaCorriente)
-         sem.addTurn(@turnosOrdenados)
-         @turnosDeSemana << sem
+         sem.setTurns(@turnosOrdenados)
+         @turnosDeSemana[i] = sem
         if (params[:professional_id] != "")
-          @turnos << Appointment.where(date: diaCorriente.all_day, professional_id:params[:professional_id] )
+          @tu = Appointment.where(date: diaCorriente.all_day, professional_id:params[:professional_id] )
+          @turnos[i] = @tu
         else
-          @turnos << Appointment.where(date: diaCorriente.all_day)
+          @turnos[i] = Appointment.where(date: diaCorriente.all_day)
         end
-
-        @turnos.each do |t|
+        
+        @turnos[i].each do |t|
+          # begin
           begin
-            @turnosDeSemana[i].get_turns.select{|tur| tur.getHora() == t.date}[0].addTurn(t)
-          rescue
-            # h = Hora.new(t.date)
-            # h.addTurn(t)
-            # @turnosDeSemana.addTurn(h)
+              @turnosDeSemana[i].get_turns().select{|tur| tur.getHora().utc == t.date}[0].addTurn(t)
+            puts "ejecute algo en begin"
+          rescue  
+             puts "estoy e recue"
+            # puts @turnos[3]
           end
-        end
+            # puts "agregue !"
+        #   rescue
+        #     h = Hora.new(t.date)
+        #     h.addTurn(t)
+        #     @turnosDeSemana.addTurn(h)
+        #   end
+         end
       end
     end
   end
@@ -98,6 +107,10 @@ class Semanal
 
   def addTurn(arr_de_info_turn)
     @turnos_en_dia << arr_de_info_turn
+  end
+
+  def setTurns(turnos)
+    @turnos_en_dia = turnos
   end
 
 end
