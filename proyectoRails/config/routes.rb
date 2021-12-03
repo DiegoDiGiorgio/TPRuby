@@ -5,7 +5,6 @@ Rails.application.routes.draw do
     password: 'secret',
     confirmation: 'verification',
     unlock: 'unblock', 
-    registration: 'register',
     sign_up: 'cmon_let_me_in' }
   get '/home', to: 'home#index'
   get '/export', to: 'exporter#index'
