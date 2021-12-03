@@ -41,9 +41,23 @@ class ExporterController < ApplicationController
       (0..6).each do |i|
         @turnos = []
         diaCorriente = @begginingOfWeek + i   
+        @turnosOrdenados = []
+         ####################################
+
+         fecha_inicio = Time.new(diaCorriente.year,diaCorriente.month, diaCorriente.day)
+         fecha_fin = fecha_inicio + 60*60*24
+         while(fecha_inicio < fecha_fin) do
+           h = Hora.new(fecha_inicio)
+           puts h.getHora
+           @turnosOrdenados << h
+           fecha_inicio += 60*15
+         end
+
+         ####################################
          sem = Semanal.new(diaCorriente)
          sem.setTurns(@turnosOrdenados)
          @turnosDeSemana[i] = sem
+        
         if (params[:professional_id] != "")
           @tu = Appointment.where(date: diaCorriente.all_day, professional_id:params[:professional_id] )
           @turnos[i] = @tu
@@ -52,20 +66,13 @@ class ExporterController < ApplicationController
         end
         
         @turnos[i].each do |t|
-          # begin
           begin
               @turnosDeSemana[i].get_turns().select{|tur| tur.getHora().utc == t.date}[0].addTurn(t)
             puts "ejecute algo en begin"
           rescue  
-             puts "estoy e recue"
+           #  puts "estoy e recue"
             # puts @turnos[3]
           end
-            # puts "agregue !"
-        #   rescue
-        #     h = Hora.new(t.date)
-        #     h.addTurn(t)
-        #     @turnosDeSemana.addTurn(h)
-        #   end
          end
       end
     end

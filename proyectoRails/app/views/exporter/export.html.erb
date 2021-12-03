@@ -40,7 +40,11 @@
           <td><%=tur.getHora().strftime("%I:%M%p")%></td>
           <%@turnosDeSemana.each do |ts|%>
           
-            <td> <%= ts.get_turns[index].get_turns%> </td>
+            <td> 
+            <%ts.get_turns[index].get_turns.each do |cadaTurno|%>      
+              - <%=Patiente.find(cadaTurno.patiente_id).name + " " + Patiente.find(cadaTurno.patiente_id).surname+ " (" + Professional.find(cadaTurno.professional_id).name + " "  + Professional.find(cadaTurno.professional_id).surname + ")" %>
+            <%end%>
+            </td>
           <%end%>
         </tr>
       <%end%>
