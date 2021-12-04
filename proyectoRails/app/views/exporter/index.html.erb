@@ -14,6 +14,10 @@
     <%= form.label :weekly %>
     <%= form.select :weekly, ['day', 'week']%>
   </div>
+  <div class="field">
+    <%= form.label :download %>
+    <%= form.select :download, ['yes', 'no']%>
+  </div>
   <br>
   <div>
     <%= form.submit "generate html" %>

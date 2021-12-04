@@ -42,7 +42,7 @@ class ExporterController < ApplicationController
         @turnos = []
         diaCorriente = @begginingOfWeek + i   
         @turnosOrdenados = []
-         ####################################
+
 
          fecha_inicio = Time.new(diaCorriente.year,diaCorriente.month, diaCorriente.day)
          fecha_fin = fecha_inicio + 60*60*24
@@ -53,7 +53,6 @@ class ExporterController < ApplicationController
            fecha_inicio += 60*15
          end
 
-         ####################################
          sem = Semanal.new(diaCorriente)
          sem.setTurns(@turnosOrdenados)
          @turnosDeSemana[i] = sem
@@ -75,6 +74,13 @@ class ExporterController < ApplicationController
           end
          end
       end
+    end
+    #logica de descarga
+    if(params[:download] == 'yes')
+      @file = helpers.addTemplate
+      @file = @file.result(binding)
+      send_data @file, filename: 'file.html'
+
     end
   end
 end
