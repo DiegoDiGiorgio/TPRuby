@@ -66,14 +66,18 @@ class ProfessionalsController < ApplicationController
 
   # DELETE /professionals/1 or /professionals/1.json
   def destroy
-    if($current_user_role=='administrador')
-      @professional.destroy
-      respond_to do |format|
-        format.html { redirect_to professionals_url, notice: "Professional was successfully destroyed." }
-        format.json { head :no_content }
+    begin
+      if($current_user_role=='administrador')
+        @professional.destroy
+        respond_to do |format|
+          format.html { redirect_to professionals_url, notice: "Professional was successfully destroyed." }
+          format.json { head :no_content }
+        end
+      else
+        redirect_to '/home', flash: {notice: "you need to be admin in order to delete a professional"}
       end
-    else
-      redirect_to '/home', flash: {notice: "you need to be admin in order to delete a professional"}
+    rescue
+      redirect_to '/professionals', flash: {notice: "The professional cannot be deleted if he has any appointment"}
     end
   end
 
