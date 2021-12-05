@@ -1,0 +1,26 @@
+<br>
+<h1>Exporter</h1>
+
+<%= form_with do |form| %>
+  <div class="field">
+    <%= form.label :date %>
+    <%= form.date_field :date, :value => Time.now.strftime('%Y-%m-%d') %>
+  </div>
+    <div class="field">
+    <%= form.label :professional_id %>
+    <%= form.select :professional_id, @professionals.all.collect {|pro| [pro.name, pro.id]}, include_blank: "No professional"%>
+  </div>
+  <div class="field">
+    <%= form.label :weekly %>
+    <%= form.select :weekly, ['day', 'week']%>
+  </div>
+  <div class="field">
+    <%= form.label :download %>
+    <%= form.select :download, ['yes', 'no']%>
+  </div>
+  <br>
+  <div>
+    <%= form.submit "generate html" %>
+    <%= link_to 'Atras', '/' %>
+  </div>
+<% end %>

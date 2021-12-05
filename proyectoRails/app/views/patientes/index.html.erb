@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Patientes</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Surname</th>
+      <th>Phone</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @patientes.each do |patiente| %>
+      <tr>
+        <td><%= patiente.name %></td>
+        <td><%= patiente.surname %></td>
+        <td><%= patiente.phone %></td>
+        <td><%= link_to 'Show', patiente %></td>
+        <%if($current_user_role != 'consulta')%>
+          <td><%= link_to 'Edit', edit_patiente_path(patiente) %></td>
+          <td><%= link_to 'Destroy', patiente, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <%end%>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+<%if($current_user_role != 'consulta')%>
+  <%= link_to 'New Patiente', new_patiente_path %>
+<%end%>
+<%= link_to 'Atras', '/' %>

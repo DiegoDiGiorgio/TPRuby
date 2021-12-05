@@ -1,0 +1,32 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Professionals</h1>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Surname</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @professionals.each do |professional| %>
+      <tr>
+        <td><%= professional.name %></td>
+        <td><%= professional.surname %></td>
+        <td><%= link_to 'Show', professional %></td>
+        <%if($current_user_role != 'consulta' && $current_user_role != 'asistencia')%>
+          <td><%= link_to 'Edit', edit_professional_path(professional) %></td>
+          <td><%= link_to 'Destroy', professional, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <%end%>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+<%if($current_user_role != 'consulta'&& $current_user_role != 'asistencia')%>
+  <%= link_to 'New Professional', new_professional_path %>
+<%end%>
+<%= link_to 'Atras', '/' %>
