@@ -125,4 +125,15 @@ puede requerir algún trabajo adicional de tu parte.
       con el formato AAAA-MM-DD_HH-II y la extencion .paf
   ## entrega 2
     * en esta entrega se instalaron 2 gemas para exportar a pdf prawn y prawn table, luego de varios intentos y al no poder formatear el contenido de forma correcta decidi cambiar y usar la clase ERB de ruby para generar un html, con el cual solo llegue a implementar la muestra por dias( no por horas) 
+
+  ## entrega #
+    * En esta entrega se utilizo Ruby on Rails para la implementacion de una aplicacion web como base de datos se utilizo SQLite y se utilizo la gema 
+    Devise para el manejo de usuarios.
+
+    Usuarios: 
+      * diego@admin.com
+      * diego@consulta.com
+      * diego@asistencia.com
+
+      todos con la contraseña 123456
   
