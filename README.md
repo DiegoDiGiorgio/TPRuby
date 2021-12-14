@@ -126,9 +126,9 @@ puede requerir algún trabajo adicional de tu parte.
   ## entrega 2
     * en esta entrega se instalaron 2 gemas para exportar a pdf prawn y prawn table, luego de varios intentos y al no poder formatear el contenido de forma correcta decidi cambiar y usar la clase ERB de ruby para generar un html, con el cual solo llegue a implementar la muestra por dias( no por horas) 
 
-  ## entrega #
-    * En esta entrega se utilizo Ruby on Rails para la implementacion de una aplicacion web como base de datos se utilizo SQLite y se utilizo la gema 
-    Devise para el manejo de usuarios.
+  ## entrega 3
+    * En esta entrega se utilizo Ruby on Rails para la implementacion de una aplicacion web que suplante a la implementada en la terminal las entregas anteriores, como motor de base de datos se utilizo SQLite y se utilizo la gema Devise para el manejo de usuarios, la cual me permitio generar un modelo de usuarios de manera rapida ademas de implementar un login.
+    Para la creacion de la grilla no se utilizo ninguna gema si no que se opto por usar erb provisto por ruby, se tomo la decision de darle al usuario la opcion de descargar la grilla o de tambien mostrarla en la misma pagina mediante un select en el formulario
 
     Usuarios: 
       * diego@admin.com
